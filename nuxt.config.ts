@@ -6,14 +6,17 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/scripts',
     '@nuxt/image',
-    '@nuxt/fonts',
+    '@nuxtjs/google-fonts'
   ],
   css: [ 'assets/styles/main.scss' ],
-  fonts: {
-    families: [
-      { name: 'Share Tech', provider: 'google' },
-      { name: 'Overlock SC', provider: 'google' },
-      { name: 'Goblin One', provider: 'google' },
-    ],
-  },
+  googleFonts: {
+    families: {
+      'Share+Tech': true,
+      'Overlock+SC': true,
+      'Goblin+One': true
+    },
+    display: 'swap',
+    prefetch: true,
+    preconnect: true
+  }
 });

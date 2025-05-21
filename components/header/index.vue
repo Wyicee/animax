@@ -51,7 +51,7 @@ watch(searchInput, search)
     justify-content: end;
 
     &-input {
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'Share Tech', sans-serif;
       padding: 7px 12px;
       max-width: 250px;
       width: 100%;
