@@ -97,7 +97,6 @@ const formName = computed(() => (
       }
 
       &-text {
-        font-family: 'Share Tech', sans-serif;
         font-size: 20px;
         line-height: 150%;
         padding-top: 15px;

@@ -24,7 +24,7 @@ const formName = computed(() => (
 
 <template>
   <div :class="b()">
-    <div v-if="pending" :class="b('loading')">Loading</div>
+    <div v-if="pending" :class="b('loading')">Loading...</div>
     <div v-else :class="b('body')">
       <div :class="b('body-names')">
         <h1 :class="b('body-names-default')">{{ formName }}</h1>
@@ -42,7 +42,7 @@ const formName = computed(() => (
           <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
         </div>
       </div>
-      <button @click="refresh()">Random anime</button>
+      <button :class="b('body-random')" @click="refresh()">Random anime</button>
     </div>
   </div>
 </template>
@@ -92,7 +92,6 @@ const formName = computed(() => (
       }
 
       &-text {
-        font-family: 'Share Tech', sans-serif;
         font-size: 20px;
         line-height: 150%;
         padding-top: 15px;
@@ -104,6 +103,14 @@ const formName = computed(() => (
       width: 225px;
       height: 320px;
       border: 3px solid #000;
+      border-radius: 6px;
+    }
+
+    &-random {
+      align-self: start;
+      padding-block: 6px;
+      width: 225px;
+      border: 1px solid #000;
       border-radius: 6px;
     }
   }

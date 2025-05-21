@@ -130,9 +130,12 @@ body {
 /**
   Нормализация высоты элемента ссылки при его инспектировании в DevTools
  */
-a:where([class]) {
+a {
   display: inline-flex;
+  color: inherit;
+  text-decoration: inherit;
 }
+
 
 /**
   Курсор-рука при наведении на элемент
