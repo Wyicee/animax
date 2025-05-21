@@ -25,7 +25,6 @@ export const fetchSearchAnime = async (query) => {
     const { data } = await fetchSearch.get('', {
       params: { q: query },
     });
-    console.log(data.data);
     return data.data;
   } catch (error) {
     console.log('error fetching search anime:', error);

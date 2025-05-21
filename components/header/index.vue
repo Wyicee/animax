@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
-import { ref } from 'vue';
 import { fetchSearchAnime } from '~/api/async-await';
 
 defineOptions({
@@ -10,22 +9,18 @@ defineOptions({
 const b = block('ax-header');
 
 const searchInput = ref('');
-const results = ref([]);
-const noResults = ref(false);
+const results = useState('DATA_FROM_HEADER', () => []);
 
 const search = async () => {
   try {
-    const data = await fetchSearchAnime(searchInput.value);
-    results.value = data;
-    noResults.value = data.length === 0;
+    results.value = await fetchSearchAnime(searchInput.value);
+    navigateTo('/results');
   } catch (error) {
     console.log(error);
     results.value = [];
-    noResults.value = true;
+    throw createError({ statusCode: 404, statusMessage: 'Anime not found' });
   }
 };
-
-watch(searchInput, search)
 </script>
 
 <template>
@@ -37,6 +32,7 @@ watch(searchInput, search)
           :class="b('body-input')"
           type="search"
           placeholder="Search anime..."
+          required
         >
         <button type="submit">Поиск</button>
       </form>
@@ -49,6 +45,7 @@ watch(searchInput, search)
   &__body {
     display: flex;
     justify-content: end;
+    padding-bottom: 25px;
 
     &-input {
       font-family: 'Share Tech', sans-serif;

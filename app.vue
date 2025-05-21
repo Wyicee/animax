@@ -1,8 +1,10 @@
 <template>
   <Header />
-  <main>
-    <NuxtPage />
-  </main>
+  <NuxtLayout>
+    <main>
+      <NuxtPage />
+    </main>
+  </NuxtLayout>
 </template>
 
 <style lang="scss">
@@ -19,7 +21,6 @@
 
 body {
   display: flex;
-  height: 100%;
   background-color: rgba(43, 39, 39, 0.9);
 }
 </style>

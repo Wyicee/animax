@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
 import { fetchRandomAnime } from '~/api/async-await';
-import { computed } from 'vue';
 
 defineOptions({
   name: 'Welcome',
@@ -54,6 +53,8 @@ const formName = computed(() => (
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100%;
+    position: relative;
 
     &-wrapper {
       display: flex;
@@ -62,8 +63,6 @@ const formName = computed(() => (
     }
 
     &-names {
-      padding-top: 20px;
-
       &-english, &-default {
         font-family: 'Overlock SC', sans-serif;
         font-size: 64px;
@@ -102,9 +101,10 @@ const formName = computed(() => (
     }
 
     &-banner {
-      border-radius: 6px;
       width: 225px;
       height: 320px;
+      border: 3px solid #000;
+      border-radius: 6px;
     }
   }
 

@@ -1,33 +1,55 @@
 <script setup lang="ts">
-import block from 'bem-cn-lite'
+import block from 'bem-cn-lite';
+import { fetchAnime } from '~/api/async-await';
 
-const b = block('anime')
+const b = block('anime');
+
+const route = useRoute();
+const id = route.params.id;
+
+const { data: anime, error } = await useAsyncData(
+  'anime-by-id',
+  () => fetchAnime(id),
+);
+
+if (error.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Anime not found' });
+}
+
+useSeoMeta({
+  title: anime.value.title_english,
+});
+
+const formSynopsis = computed(() => (
+  anime.value.synopsis === null ? 'No synopsis' : anime.value.synopsis
+));
+
+const formName = computed(() => (
+  anime.value.title_english === null ? anime.value.title_japanese : anime.value.title_english
+));
 </script>
 
 <template>
-  <template>
-    <div :class="b()">
-      <div v-if="pending">Loading</div>
-      <div v-else :class="b('body')">
-        <div :class="b('body-names')">
-          <h1 :class="b('body-names-default')">{{ formName }}</h1>
-          <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
-        </div>
-        <div :class="b('body-wrapper')">
-          <NuxtImg
-            :class="b('body-banner')"
-            format="webp,jpg"
-            :src=items.images.jpg.image_url
-            alt="image title"
-          />
-          <div :class="b('body-synopsis')">
-            <div :class="b('body-synopsis-tag')">Synopsis</div>
-            <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
-          </div>
+  <div :class="b()">
+    <div :class="b('body')">
+      <div :class="b('body-names')">
+        <h1 :class="b('body-names-default')">{{ formName }}</h1>
+        <h2 :class="b('body-names-original')">{{ anime.title_japanese }}</h2>
+      </div>
+      <div :class="b('body-wrapper')">
+        <NuxtImg
+          :class="b('body-banner')"
+          format="webp,jpg"
+          :src=anime.images.jpg.image_url
+          alt="image title"
+        />
+        <div :class="b('body-synopsis')">
+          <div :class="b('body-synopsis-tag')">Synopsis</div>
+          <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
         </div>
       </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -36,6 +58,8 @@ const b = block('anime')
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100%;
+    position: relative;
 
     &-wrapper {
       display: flex;
@@ -44,8 +68,6 @@ const b = block('anime')
     }
 
     &-names {
-      padding-top: 20px;
-
       &-english, &-default {
         font-family: 'Overlock SC', sans-serif;
         font-size: 64px;
@@ -84,9 +106,10 @@ const b = block('anime')
     }
 
     &-banner {
-      border-radius: 6px;
       width: 225px;
       height: 320px;
+      border: 3px solid #000;
+      border-radius: 6px;
     }
   }
 }
