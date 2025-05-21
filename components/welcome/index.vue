@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
-import { fetchAnime, fetchRandomAnime } from '~/api/async-await';
+import { fetchRandomAnime } from '~/api/async-await';
 import { computed } from 'vue';
 
 defineOptions({
@@ -9,23 +9,26 @@ defineOptions({
 
 const b = block('welcome');
 
-const { data: items, pending } = await useAsyncData(
+const { data: items, pending, refresh } = await useAsyncData(
   'anime',
-  () => fetchRandomAnime()
-)
+  () => fetchRandomAnime(),
+);
 
 const formSynopsis = computed(() => (
   items.value.synopsis === null ? 'No synopsis' : items.value.synopsis
+));
+
+const formName = computed(() => (
+  items.value.title_english === null ? items.value.title_japanese : items.value.title_english
 ));
 </script>
 
 <template>
   <div :class="b()">
-    <div v-if="pending">Loading</div>
+    <div v-if="pending" :class="b('loading')">Loading</div>
     <div v-else :class="b('body')">
       <div :class="b('body-names')">
-        <h1 v-if="items.title_english === null" :class="b('body-names-default')">{{ items.title }}</h1>
-        <h1 v-if="items.title_english !== null" :class="b('body-names-english')">{{ items.title_english }}</h1>
+        <h1 :class="b('body-names-default')">{{ formName }}</h1>
         <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
       </div>
       <div :class="b('body-wrapper')">
@@ -40,6 +43,7 @@ const formSynopsis = computed(() => (
           <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
         </div>
       </div>
+      <button @click="refresh()">Random anime</button>
     </div>
   </div>
 </template>
@@ -93,6 +97,7 @@ const formSynopsis = computed(() => (
         font-size: 20px;
         line-height: 150%;
         padding-top: 15px;
+        padding-left: 4px;
       }
     }
 
@@ -101,6 +106,14 @@ const formSynopsis = computed(() => (
       width: 225px;
       height: 320px;
     }
+  }
+
+  &__loading {
+    font-size: 102px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>

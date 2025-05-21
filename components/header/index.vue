@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
+import { ref } from 'vue';
+import { fetchSearchAnime } from '~/api/async-await';
 
 defineOptions({
   name: 'AxHeader',
@@ -7,15 +9,37 @@ defineOptions({
 
 const b = block('ax-header');
 
-const route = useRoute();
+const searchInput = ref('');
+const results = ref([]);
+const noResults = ref(false);
 
-console.log(route.params.id);
+const search = async () => {
+  try {
+    const data = await fetchSearchAnime(searchInput.value);
+    results.value = data;
+    noResults.value = data.length === 0;
+  } catch (error) {
+    console.log(error);
+    results.value = [];
+    noResults.value = true;
+  }
+};
+
+watch(searchInput, search)
 </script>
 
 <template>
   <div :class="b()">
     <div :class="b('body')">
-      <input :class="b('body-input')" type="search" placeholder="Поиск...">
+      <form @submit.prevent="search">
+        <input
+          v-model="searchInput"
+          :class="b('body-input')"
+          type="search"
+          placeholder="Search anime..."
+        >
+        <button type="submit">Поиск</button>
+      </form>
     </div>
   </div>
 </template>
