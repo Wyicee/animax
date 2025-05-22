@@ -58,6 +58,8 @@ const formName = computed(() => (
 </template>
 
 <style scoped lang="scss">
+@use 'assets/styles/media' as *;
+
 .welcome {
   &__body {
     display: flex;
@@ -66,10 +68,17 @@ const formName = computed(() => (
     height: 100%;
     position: relative;
 
+    @include tablet {
+    }
+
     &-wrapper {
       display: flex;
       align-items: start;
       column-gap: 15px;
+
+      @include tablet {
+        flex-direction: column;
+      }
     }
 
     &-names {
@@ -79,12 +88,20 @@ const formName = computed(() => (
         font-weight: 100;
         line-height: 110%;
         letter-spacing: -5%;
+
+        @include tablet {
+          font-size: 32px;
+        }
       }
 
       &-original {
         font-family: 'Overlock SC', sans-serif;
         font-size: 21px;
         color: rgba(97, 97, 97, .6);
+
+        @include tablet {
+          font-size: 18px;
+        }
       }
     }
 
@@ -92,6 +109,10 @@ const formName = computed(() => (
       display: flex;
       flex-direction: column;
       width: 100%;
+
+      @include tablet {
+        padding-top: 10px;
+      }
 
       &-tag {
         flex-grow: 1;
@@ -106,6 +127,10 @@ const formName = computed(() => (
         line-height: 150%;
         padding-top: 15px;
         padding-left: 4px;
+
+        @include tablet {
+          font-size: 16px;
+        }
       }
     }
 
@@ -114,6 +139,11 @@ const formName = computed(() => (
       height: 320px;
       border: 3px solid #000;
       border-radius: 6px;
+
+      @include mobile-s {
+        width: 190px;
+        height: 270px;
+      }
     }
 
     &-random {

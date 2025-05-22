@@ -73,6 +73,8 @@ const swiperSettings = reactive({
     flex-direction: column;
     align-items: center;
     text-align: center;
+    transition-duration: .2s;
+
 
     &:hover {
       img {
@@ -90,7 +92,6 @@ const swiperSettings = reactive({
       font-size: 20px;
       text-wrap: pretty;
       border-bottom: 2px solid transparent;
-      transition-duration: .15s;
     }
 
     img {

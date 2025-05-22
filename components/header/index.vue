@@ -31,8 +31,8 @@ const search = async () => {
 <template>
   <div :class="b()">
     <div :class="b('body')">
-      <Transition style="flex-grow: 1">
-        <div v-show="!isHomePage">
+      <Transition>
+        <div v-show="!isHomePage" style="flex-grow: 1">
           <NuxtLink :class="b('body-return')" to="/">Home Page</NuxtLink>
         </div>
       </Transition>
@@ -58,6 +58,8 @@ const search = async () => {
 </template>
 
 <style scoped lang="scss">
+@use 'assets/styles/media' as *;
+
 .ax-header {
   &__body {
     display: flex;
@@ -69,6 +71,10 @@ const search = async () => {
       font-size: 20px;
       border-bottom: 2px solid transparent;
       transition-duration: .2s;
+
+      @include mobile-s {
+        font-size: 16px;
+      }
 
       &:hover {
         border-bottom-color: #000;
@@ -98,6 +104,10 @@ const search = async () => {
       border: 2px solid #000;
       border-radius: 8px 0 0 8px;
       background: inherit;
+
+      @include mobile-s {
+        max-width: 130px;
+      }
 
       &:focus {
         outline: none;

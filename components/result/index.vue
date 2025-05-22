@@ -32,6 +32,8 @@ const searchResults = useState('DATA_FROM_HEADER');
 </template>
 
 <style scoped lang="scss">
+@use 'assets/styles/media' as *;
+
 .results {
   &__body {
     display: flex;
@@ -40,10 +42,15 @@ const searchResults = useState('DATA_FROM_HEADER');
 
     &-invalid {
       font-size: 102px;
+      text-align: center;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      @include mobile-s {
+        font-size: 41px;
+      }
     }
 
     &-list {
