@@ -31,9 +31,11 @@ const search = async () => {
 <template>
   <div :class="b()">
     <div :class="b('body')">
-      <div v-if="!isHomePage" style="flex-grow: 1">
-        <NuxtLink :class="b('body-return')" to="/">Home Page</NuxtLink>
-      </div>
+      <Transition style="flex-grow: 1">
+        <div v-show="!isHomePage">
+          <NuxtLink :class="b('body-return')" to="/">Home Page</NuxtLink>
+        </div>
+      </Transition>
       <form :class="b('body-form')" @submit.prevent="search">
         <input
           v-model="searchInput"
@@ -106,5 +108,15 @@ const search = async () => {
       }
     }
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all .6s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
