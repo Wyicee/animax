@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
-import { fetchAnime } from '~/api/async-await';
+import { fetchAnimeById } from '~/api/async-await';
 
 const b = block('anime');
 
@@ -9,7 +9,7 @@ const id = route.params.id;
 
 const { data: anime, error } = await useAsyncData(
   'anime-by-id',
-  () => fetchAnime(id),
+  () => fetchAnimeById(id),
 );
 
 if (error.value) {
@@ -18,6 +18,7 @@ if (error.value) {
 
 useSeoMeta({
   title: anime.value.title_english,
+  ogTitle: anime.value.title_english,
 });
 
 const formSynopsis = computed(() => (

@@ -1,16 +1,21 @@
 import axios from 'axios';
 
-export const fetchById = axios.create({
+export const animeById = axios.create({
   baseURL: 'https://api.jikan.moe/v4/anime',
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const fetchRandom = axios.create({
+export const randomAnime = axios.create({
   baseURL: 'https://api.jikan.moe/v4/random/anime',
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const fetchSearch = axios.create({
+export const searchAnime = axios.create({
   baseURL: 'https://api.jikan.moe/v4/anime',
   headers: { 'Content-Type': 'application/json' },
 });
+
+export const topAnime = axios.create({
+  baseURL: 'https://api.jikan.moe/v4/top/anime',
+  headers: { 'Content-Type': 'application/json' },
+})

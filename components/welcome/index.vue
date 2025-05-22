@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
-import { fetchRandomAnime } from '~/api/async-await';
+import { fetchRandomAnime, fetchTopAnime } from '~/api/async-await';
+import AxSwiper from '~/components/swiper/index.vue';
 
 defineOptions({
-  name: 'Welcome',
+  name: 'AxWelcome',
 });
 
 const b = block('welcome');
@@ -11,6 +12,11 @@ const b = block('welcome');
 const { data: items, pending, refresh } = await useAsyncData(
   'anime',
   () => fetchRandomAnime(),
+);
+
+const { data: animeTop } = await useAsyncData(
+  'topAnime',
+  () => fetchTopAnime(),
 );
 
 const formSynopsis = computed(() => (
@@ -25,7 +31,7 @@ const formName = computed(() => (
 <template>
   <div :class="b()">
     <div v-if="pending" :class="b('loading')">Loading...</div>
-    <div v-else :class="b('body')">
+    <div :class="b('body')">
       <div :class="b('body-names')">
         <h1 :class="b('body-names-default')">{{ formName }}</h1>
         <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
@@ -43,6 +49,9 @@ const formName = computed(() => (
         </div>
       </div>
       <button :class="b('body-random')" @click="refresh()">Random anime</button>
+    </div>
+    <div :class="b('main')">
+      <AxSwiper :anime-top-list="animeTop" />
     </div>
   </div>
 </template>
@@ -67,7 +76,7 @@ const formName = computed(() => (
         font-family: 'Overlock SC', sans-serif;
         font-size: 64px;
         font-weight: 100;
-        line-height: 130%;
+        line-height: 100%;
         letter-spacing: -5%;
       }
 

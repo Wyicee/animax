@@ -14,11 +14,11 @@ const searchResults = useState('DATA_FROM_HEADER');
   <div :class="b()">
     <div :class="b('body')">
       <div v-if="searchResults.length === 0" :class="b('body-invalid')">Search something</div>
-      <ul :class="b('body-list')">
+      <ul v-else :class="b('body-list')">
         <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
           <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
             <figure :class="b('body-list-item-figure')">
-              <p>{{ item.title_english }}</p>
+              <figcaption>{{ item.title_english }}</figcaption>
               <NuxtImg
                 format="webp,jpg"
                 :src=item.images.jpg.image_url
@@ -50,15 +50,17 @@ const searchResults = useState('DATA_FROM_HEADER');
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-height: 740px;
+      max-height: 755px;
+      border-radius: 15px;
+      background-color: rgba(136, 136, 136, 0.2);
+      box-shadow: 0 0 15px 7px rgba(255, 255, 255, 0.4);
       overflow-y: scroll;
 
       &-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 20px;
-        padding-inline: 15px;
+        padding: 15px 20px;
 
         &-figure {
           display: flex;
@@ -72,13 +74,13 @@ const searchResults = useState('DATA_FROM_HEADER');
               transition-duration: .15s;
             }
 
-            p {
+            figcaption {
               border-bottom-color: #000;
               transition-duration: .15s;
             }
           }
 
-          p {
+          figcaption {
             font-size: 20px;
             text-wrap: pretty;
             border-bottom: 2px solid transparent;

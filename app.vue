@@ -14,7 +14,7 @@
 #__nuxt {
   display: flex;
   flex-direction: column;
-  padding: 40px 50px;
+  padding: 20px 30px;
   margin-inline: auto;
   max-width: 1200px;
   width: 100%;

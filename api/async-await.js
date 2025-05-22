@@ -1,8 +1,8 @@
-import { fetchById, fetchRandom, fetchSearch } from './axios.js';
+import { animeById, randomAnime, searchAnime, topAnime } from './axios.js';
 
-export const fetchAnime = async (id) => {
+export const fetchAnimeById = async (id) => {
   try {
-    const { data } = await fetchById.get(`/${ id }`);
+    const { data } = await animeById.get(`/${ id }`);
     return data.data;
   } catch (error) {
     console.error('error fetching anime yamete cudasai:', error);
@@ -12,7 +12,7 @@ export const fetchAnime = async (id) => {
 
 export const fetchRandomAnime = async () => {
   try {
-    const { data } = await fetchRandom.get();
+    const { data } = await randomAnime.get();
     return data.data;
   } catch (error) {
     console.log('error fetching random anime:', error);
@@ -22,12 +22,22 @@ export const fetchRandomAnime = async () => {
 
 export const fetchSearchAnime = async (query) => {
   try {
-    const { data } = await fetchSearch.get('', {
+    const { data } = await searchAnime.get('', {
       params: { q: query },
     });
     return data.data;
   } catch (error) {
     console.log('error fetching search anime:', error);
+    throw error;
+  }
+};
+
+export const fetchTopAnime = async () => {
+  try {
+    const { data } = await topAnime.get();
+    return data.data;
+  } catch (error) {
+    console.log('error fetching top anime:', error);
     throw error;
   }
 };
