@@ -1,8 +1,8 @@
-import { animeById, randomAnime, searchAnime, topAnime } from './axios.js';
+import { anime, randomAnime, topAnime } from './axios.js';
 
 export const fetchAnimeById = async (id) => {
   try {
-    const { data } = await animeById.get(`/${ id }`);
+    const { data } = await anime.get(`/${ id }`);
     return data.data;
   } catch (error) {
     console.error('error fetching anime yamete cudasai:', error);
@@ -22,7 +22,7 @@ export const fetchRandomAnime = async () => {
 
 export const fetchSearchAnime = async (query) => {
   try {
-    const { data } = await searchAnime.get('', {
+    const { data } = await anime.get('', {
       params: { q: query },
     });
     return data.data;

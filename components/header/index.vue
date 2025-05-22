@@ -65,9 +65,11 @@ const search = async () => {
     &-return {
       font-size: 20px;
       border-bottom: 2px solid transparent;
+      transition-duration: .2s;
 
       &:hover {
         border-bottom-color: #000;
+        transition-duration: .2s;
       }
     }
 

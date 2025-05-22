@@ -8,6 +8,20 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/google-fonts',
   ],
+  plugins: [
+    '~/plugins/bem-cn.ts',
+  ],
+  app: {
+    baseURL: '/animax/',
+    buildAssetsDir: '/_nuxt/',
+    cdnURL: '',
+  },
+  ssr: true,
+  nitro: {
+    prerender: {
+      routes: [ '/' ],
+    },
+  },
   googleFonts: {
     families: {
       'Share+Tech': true,

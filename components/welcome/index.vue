@@ -30,26 +30,27 @@ const formName = computed(() => (
 
 <template>
   <div :class="b()">
-    <div v-if="pending" :class="b('loading')">Loading...</div>
-    <div :class="b('body')">
-      <div :class="b('body-names')">
-        <h1 :class="b('body-names-default')">{{ formName }}</h1>
-        <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
-      </div>
-      <div :class="b('body-wrapper')">
-        <NuxtImg
-          :class="b('body-banner')"
-          format="webp,jpg"
-          :src=items.images.jpg.image_url
-          alt="image title"
-        />
-        <div :class="b('body-synopsis')">
-          <div :class="b('body-synopsis-tag')">Synopsis</div>
-          <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
+    <Transition>
+      <div v-show="!pending" :class="b('body')">
+        <div :class="b('body-names')">
+          <h1 :class="b('body-names-default')">{{ formName }}</h1>
+          <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
         </div>
+        <div :class="b('body-wrapper')">
+          <NuxtImg
+            :class="b('body-banner')"
+            format="webp,jpg"
+            :src=items.images.jpg.image_url
+            alt="image title"
+          />
+          <div :class="b('body-synopsis')">
+            <div :class="b('body-synopsis-tag')">Synopsis</div>
+            <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
+          </div>
+        </div>
+        <button :class="b('body-random')" @click="refresh()">Random anime</button>
       </div>
-      <button :class="b('body-random')" @click="refresh()">Random anime</button>
-    </div>
+    </Transition>
     <div :class="b('main')">
       <AxSwiper :anime-top-list="animeTop" />
     </div>
@@ -76,7 +77,7 @@ const formName = computed(() => (
         font-family: 'Overlock SC', sans-serif;
         font-size: 64px;
         font-weight: 100;
-        line-height: 100%;
+        line-height: 110%;
         letter-spacing: -5%;
       }
 
@@ -123,13 +124,15 @@ const formName = computed(() => (
       border-radius: 6px;
     }
   }
+}
 
-  &__loading {
-    font-size: 102px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+.v-enter-active,
+.v-leave-active {
+  transition: opacity .5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
