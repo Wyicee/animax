@@ -14,21 +14,19 @@ const searchResults = useState('DATA_FROM_HEADER');
   <div :class="b()">
     <div :class="b('body')">
       <div v-if="searchResults.length === 0" :class="b('body-invalid')">Search something</div>
-      <Transition>
-        <ul v-show="searchResults.length > 0" :class="b('body-list')">
-          <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
-            <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
-              <figure :class="b('body-list-item-figure')">
-                <NuxtImg
-                  format="webp,jpg"
-                  :src=item.images.jpg.image_url
-                />
-                <figcaption>{{ item.title_english }}</figcaption>
-              </figure>
-            </NuxtLink>
-          </li>
-        </ul>
-      </Transition>
+      <TransitionGroup :class="b('body-list')" tag="ul">
+        <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
+          <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
+            <figure :class="b('body-list-item-figure')">
+              <NuxtImg
+                format="webp,jpg"
+                :src=item.images.jpg.image_url
+              />
+              <figcaption>{{ item.title_english }}</figcaption>
+            </figure>
+          </NuxtLink>
+        </li>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -106,7 +104,7 @@ const searchResults = useState('DATA_FROM_HEADER');
 
 .v-enter-active,
 .v-leave-active {
-  transition: all .6s;
+  transition: all .4s;
 }
 
 .v-enter-from,

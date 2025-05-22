@@ -4,7 +4,7 @@ import AxResult from '~/components/result/index.vue';
 useSeoMeta({
   title: 'Results page',
   ogTitle: 'Results page',
-})
+});
 </script>
 
 <template>

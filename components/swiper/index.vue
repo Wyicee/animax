@@ -100,13 +100,5 @@ const swiperSettings = reactive({
       border-radius: 6px;
     }
   }
-
-  &-button {
-    &-next {
-      position: absolute;
-    }
-
-    &-prev {}
-  }
 }
 </style>

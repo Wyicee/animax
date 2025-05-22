@@ -17,7 +17,8 @@ const results = useState('DATA_FROM_HEADER', () => []);
 
 const search = async () => {
   try {
-    results.value = await fetchSearchAnime(searchInput.value);
+    const data = await fetchSearchAnime(searchInput.value);
+    results.value = data;
     navigateTo('/results');
   } catch (error) {
     console.log(error);

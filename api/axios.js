@@ -13,4 +13,4 @@ export const randomAnime = axios.create({
 export const topAnime = axios.create({
   baseURL: 'https://api.jikan.moe/v4/top/anime',
   headers: { 'Content-Type': 'application/json' },
-})
+});
