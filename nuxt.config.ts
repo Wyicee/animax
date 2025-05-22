@@ -22,6 +22,14 @@ export default defineNuxtConfig({
       routes: [ '/' ],
     },
   },
+  vite: {
+    ssr: {
+      noExternal: [ 'bem-cn-lite' ],
+    },
+    optimizeDeps: {
+      include: [ 'bem-cn-lite' ],
+    },
+  },
   googleFonts: {
     families: {
       'Share+Tech': true,
