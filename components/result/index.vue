@@ -14,19 +14,21 @@ const searchResults = useState('DATA_FROM_HEADER');
   <div :class="b()">
     <div :class="b('body')">
       <div v-if="searchResults.length === 0" :class="b('body-invalid')">Search something</div>
-      <ul v-else :class="b('body-list')">
-        <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
-          <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
-            <figure :class="b('body-list-item-figure')">
-              <figcaption>{{ item.title_english }}</figcaption>
-              <NuxtImg
-                format="webp,jpg"
-                :src=item.images.jpg.image_url
-              />
-            </figure>
-          </NuxtLink>
-        </li>
-      </ul>
+      <Transition>
+        <ul v-show="searchResults.length > 0" :class="b('body-list')">
+          <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
+            <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
+              <figure :class="b('body-list-item-figure')">
+                <NuxtImg
+                  format="webp,jpg"
+                  :src=item.images.jpg.image_url
+                />
+                <figcaption>{{ item.title_english }}</figcaption>
+              </figure>
+            </NuxtLink>
+          </li>
+        </ul>
+      </Transition>
     </div>
   </div>
 </template>
@@ -47,20 +49,24 @@ const searchResults = useState('DATA_FROM_HEADER');
     }
 
     &-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
       max-height: 755px;
       border-radius: 15px;
       background-color: rgba(136, 136, 136, 0.2);
       box-shadow: 0 0 15px 7px rgba(255, 255, 255, 0.4);
       overflow-y: scroll;
 
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
       &-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 15px 20px;
+        padding: 25px 20px;
 
         &-figure {
           display: flex;
@@ -96,5 +102,15 @@ const searchResults = useState('DATA_FROM_HEADER');
       }
     }
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all .6s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

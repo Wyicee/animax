@@ -1,11 +1,13 @@
 <template>
   <NuxtLoadingIndicator />
   <Header />
-  <NuxtLayout>
-    <main>
-      <NuxtPage />
-    </main>
-  </NuxtLayout>
+  <BaseTransition name="page">
+    <NuxtLayout>
+      <main>
+        <NuxtPage />
+      </main>
+    </NuxtLayout>
+  </BaseTransition>
 </template>
 
 <style lang="scss">
@@ -27,5 +29,15 @@ body {
   display: flex;
   font-family: 'Share Tech', sans-serif;
   background-color: rgba(4, 103, 4, 0.7);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.6s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
 }
 </style>

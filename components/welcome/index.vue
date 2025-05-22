@@ -128,7 +128,7 @@ const formName = computed(() => (
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity .5s ease;
+  transition: all .6s;
 }
 
 .v-enter-from,

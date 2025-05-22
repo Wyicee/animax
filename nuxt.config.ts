@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     baseURL: '/animax/',
     buildAssetsDir: '/_nuxt/',
     cdnURL: '',
+    pageTransition: { name: 'page', mode: 'out-in' },
   },
   ssr: true,
   nitro: {
