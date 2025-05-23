@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
 
-defineOptions({
-  name: 'AxResult',
-});
-
 const b = block('results');
 
 const searchResults = useState('DATA_FROM_HEADER');
@@ -13,8 +9,8 @@ const searchResults = useState('DATA_FROM_HEADER');
 <template>
   <div :class="b()">
     <div :class="b('body')">
-      <div v-if="searchResults.length === 0" :class="b('body-invalid')">Search something</div>
-      <TransitionGroup :class="b('body-list')" tag="ul">
+      <div v-if="searchResults.length === 0" :class="b('body-invalid')">No data</div>
+      <TransitionGroup :class="b('body-list')" tag="ul" mode="out-in" move-class="list-mode">
         <li v-for="item in searchResults" :key="item.mal_id" :class="b('body-list-item')">
           <NuxtLink :class="b('body-list-item-link')" :to="`/animes/${item.mal_id}`">
             <figure :class="b('body-list-item-figure')">
@@ -22,7 +18,7 @@ const searchResults = useState('DATA_FROM_HEADER');
                 format="webp,jpg"
                 :src=item.images.jpg.image_url
               />
-              <figcaption>{{ item.title_english }}</figcaption>
+              <figcaption>{{ item.title_english || item.title_english }}</figcaption>
             </figure>
           </NuxtLink>
         </li>
@@ -73,6 +69,10 @@ const searchResults = useState('DATA_FROM_HEADER');
         align-items: center;
         padding: 25px 20px;
 
+        @include tablet {
+          padding: 10px 8px;
+        }
+
         &-figure {
           display: flex;
           flex-direction: column;
@@ -101,7 +101,15 @@ const searchResults = useState('DATA_FROM_HEADER');
           img {
             border: 3px solid #000;
             border-radius: 6px;
+            width: 230px;
+            height: 320px;
             transition-duration: .15s;
+
+
+            @include mobile {
+              width: 180px;
+              height: 200px;
+            }
           }
         }
       }
@@ -111,11 +119,16 @@ const searchResults = useState('DATA_FROM_HEADER');
 
 .v-enter-active,
 .v-leave-active {
-  transition: all .4s;
+  transition: opacity .5s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
 }
+
+.list-move {
+  transition: transform .5s ease;
+}
+
 </style>

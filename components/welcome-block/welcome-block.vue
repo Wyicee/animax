@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import block from 'bem-cn-lite';
-import { fetchRandomAnime, fetchTopAnime } from '~/api/async-await';
-import AxSwiper from '~/components/swiper/index.vue';
+import { fetchRandomAnime } from '~/api/async-await';
 
-defineOptions({
-  name: 'AxWelcome',
-});
-
-const b = block('welcome');
+const b = block('welcome-block');
 
 const { data: items, pending, refresh } = await useAsyncData(
   'anime',
   () => fetchRandomAnime(),
-);
-
-const { data: animeTop } = await useAsyncData(
-  'topAnime',
-  () => fetchTopAnime(),
 );
 
 const formSynopsis = computed(() => (
@@ -37,12 +27,16 @@ const formName = computed(() => (
           <h2 :class="b('body-names-original')">{{ items.title_japanese }}</h2>
         </div>
         <div :class="b('body-wrapper')">
-          <NuxtImg
-            :class="b('body-banner')"
-            format="webp,jpg"
-            :src=items.images.jpg.image_url
-            alt="image title"
-          />
+          <Transition>
+            <NuxtImg
+              :class="b('body-banner')"
+              :src=items.images.jpg.image_url
+              :alt="items.title_english || items.title_japanese"
+              width="225"
+              height="320"
+              format="webp"
+            />
+          </Transition>
           <div :class="b('body-synopsis')">
             <div :class="b('body-synopsis-tag')">Synopsis</div>
             <p :class="b('body-synopsis-text')">{{ formSynopsis }}</p>
@@ -52,7 +46,7 @@ const formName = computed(() => (
       </div>
     </Transition>
     <div :class="b('main')">
-      <AxSwiper :anime-top-list="animeTop" />
+      <top-rated-anime />
     </div>
   </div>
 </template>
@@ -60,16 +54,14 @@ const formName = computed(() => (
 <style scoped lang="scss">
 @use 'assets/styles/media' as *;
 
-.welcome {
+.welcome-block {
   &__body {
     display: flex;
     flex-direction: column;
     gap: 20px;
     height: 100%;
+    min-height: 500px;
     position: relative;
-
-    @include tablet {
-    }
 
     &-wrapper {
       display: flex;
@@ -158,7 +150,7 @@ const formName = computed(() => (
 
 .v-enter-active,
 .v-leave-active {
-  transition: all .6s;
+  transition: all .5s ease;
 }
 
 .v-enter-from,

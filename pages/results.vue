@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AxResult from '~/components/result/index.vue';
-
 useSeoMeta({
   title: 'Results page',
   ogTitle: 'Results page',
@@ -8,7 +6,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <AxResult />
+  <results-search-anime />
 </template>
 
 <style scoped lang="scss">

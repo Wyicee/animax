@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AxWelcome from '~/components/welcome/index.vue';
-
 useSeoMeta({
   title: 'Welcome page',
   ogTitle: 'Welcome page',
@@ -8,5 +6,5 @@ useSeoMeta({
 </script>
 
 <template>
-  <AxWelcome />
+  <welcome-block />
 </template>

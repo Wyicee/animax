@@ -1,13 +1,11 @@
 <template>
   <NuxtLoadingIndicator />
   <Header />
-  <BaseTransition name="page">
-    <NuxtLayout>
-      <main>
-        <NuxtPage />
-      </main>
-    </NuxtLayout>
-  </BaseTransition>
+  <NuxtLayout>
+    <main>
+      <NuxtPage />
+    </main>
+  </NuxtLayout>
 </template>
 
 <style lang="scss">

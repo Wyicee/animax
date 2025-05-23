@@ -2,22 +2,25 @@
 import block from 'bem-cn-lite';
 import { fetchSearchAnime } from '~/api/async-await';
 
-defineOptions({
-  name: 'AxHeader',
-});
-
-const b = block('ax-header');
+const b = block('header');
 
 const route = useRoute();
 
 const isHomePage = computed(() => route.path === '/');
+const isResultPage = computed(() => route.path === '/results');
 
 const searchInput = ref('');
+const modeFilter = ref<'new' | 'pop'>('pop');
+
 const results = useState('DATA_FROM_HEADER', () => []);
 
 const search = async () => {
   try {
-    const data = await fetchSearchAnime(searchInput.value);
+    const data = await fetchSearchAnime({
+      q: searchInput.value,
+      order_by: modeFilter.value === 'new' ? 'start_date' : 'members',
+      sort: 'desc',
+    });
     results.value = data;
     navigateTo('/results');
   } catch (error) {
@@ -26,6 +29,8 @@ const search = async () => {
     throw createError({ statusCode: 404, statusMessage: 'Anime not found' });
   }
 };
+
+watch(modeFilter, search);
 </script>
 
 <template>
@@ -35,6 +40,16 @@ const search = async () => {
         <div v-show="!isHomePage" style="flex-grow: 1">
           <NuxtLink :class="b('body-return')" to="/">Home Page</NuxtLink>
         </div>
+      </Transition>
+      <Transition>
+        <select
+          v-show="isResultPage && results.length > 0"
+          v-model="modeFilter"
+          :class="b('body-filter')"
+        >
+          <option value="new">Newest</option>
+          <option value="pop">Popular</option>
+        </select>
       </Transition>
       <form :class="b('body-form')" @submit.prevent="search">
         <input
@@ -60,7 +75,7 @@ const search = async () => {
 <style scoped lang="scss">
 @use 'assets/styles/media' as *;
 
-.ax-header {
+.header {
   &__body {
     display: flex;
     align-items: center;
@@ -80,6 +95,16 @@ const search = async () => {
         border-bottom-color: #000;
         transition-duration: .2s;
       }
+    }
+
+    &-filter {
+      display: flex;
+      align-items: center;
+      padding: 7px 12px;
+      margin-right: 12px;
+      border: 1px solid #000;
+      border-radius: 8px;
+      background: inherit;
     }
 
     &-form {
