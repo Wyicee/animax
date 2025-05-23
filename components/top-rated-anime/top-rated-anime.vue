@@ -34,12 +34,19 @@ const { data: animeTop } = await useAsyncData(
 </template>
 
 <style scoped lang="scss">
+@use '/assets/styles/media' as *;
+
 .top-rated-anime {
   &__body {
     &-title {
       font-family: 'Overlock SC', sans-serif;
       font-size: 42px;
       padding-top: 35px;
+
+      @include mobile {
+        font-size: 26px;
+        padding-top: 25px;
+      }
     }
 
     &-figure {
@@ -76,5 +83,11 @@ const { data: animeTop } = await useAsyncData(
       }
     }
   }
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

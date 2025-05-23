@@ -44,11 +44,5 @@ const swiperSettings = reactive({
   &-wrapper {
     display: flex;
   }
-
-  &-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
 </style>

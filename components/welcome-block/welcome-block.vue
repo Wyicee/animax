@@ -9,6 +9,7 @@ const { data: items, pending, refresh } = await useAsyncData(
   () => fetchRandomAnime(),
 );
 
+
 const formSynopsis = computed(() => (
   items.value.synopsis === null ? 'No synopsis' : items.value.synopsis
 ));
@@ -115,13 +116,22 @@ const formName = computed(() => (
       }
 
       &-text {
+        text-overflow: ellipsis;
         font-size: 20px;
         line-height: 150%;
         padding-top: 15px;
         padding-left: 4px;
+        height: 100%;
 
         @include tablet {
           font-size: 16px;
+        }
+
+        @include mobile-s {
+          max-height: 500px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }

@@ -88,7 +88,7 @@ watch(modeFilter, search);
       transition-duration: .2s;
 
       @include mobile-s {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       &:hover {
@@ -119,10 +119,22 @@ watch(modeFilter, search);
         border-left: none;
         border-radius: 0 8px 8px 0;
         background: inherit;
+
+        svg {
+          @include mobile-s {
+            width: 20px;
+          }
+        }
+
+        @include mobile {
+          border-block: 1px solid #000;
+          border-right: 1px solid #000;
+        }
       }
     }
 
     &-input {
+      text-overflow: ellipsis;
       padding: 7px 12px;
       max-width: 250px;
       width: 100%;
@@ -130,8 +142,12 @@ watch(modeFilter, search);
       border-radius: 8px 0 0 8px;
       background: inherit;
 
+      @include mobile {
+        border: 1px solid #000;
+      }
+
       @include mobile-s {
-        max-width: 130px;
+        max-width: 100px;
       }
 
       &:focus {
